@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Authentication Frontend
 
-## Getting Started
+A Next.js application with authentication features including email/password login and Google OAuth integration.
 
-First, run the development server:
+## Features
+
+- Email/Password Authentication
+- Google OAuth Integration
+- Protected Routes
+- Automatic Token Refresh
+- Secure Cookie-based Authentication
+- Logout Functionality
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Node.js (v18 or higher)
+- npm or yarn
+- A running backend service (default: http://localhost:3000)
+
+## Environment Setup
+
+1. Copy the environment variables template:
+
+```bash
+cp .env.example .env
+```
+
+2. Update the `.env` file with your configuration:
+
+```env
+API URLs
+API_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:3000
+Google OAuth (if using Google authentication)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+## Installation
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will start on [http://localhost:3001](http://localhost:3001)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+├── app/
+│ ├── auth/
+│ │ ├── login/ # Login page and actions
+│ │ ├── actions.ts # Authentication server actions
+│ │ └── auth-cookie.ts # Cookie management utilities
+│ ├── components/ # Reusable components
+│ └── page.tsx # Home page
+├── middleware.ts # Authentication middleware
+└── .env.example # Environment variables template
+```
 
-## Learn More
+## Authentication Flow
 
-To learn more about Next.js, take a look at the following resources:
+1. **Login**: Users can authenticate via:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Email/password login form
+   - Google OAuth button
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Session Management**:
 
-## Deploy on Vercel
+   - Authentication status stored in HTTP-only cookies
+   - Automatic token refresh
+   - Protected routes redirect to login
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Logout**:
+   - Clears authentication cookies
+   - Redirects to login page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Development
+
+- Modify `app/page.tsx` to edit the home page
+- Protected routes are handled by `middleware.ts`
+- Authentication logic is in `app/auth/`
+
+## Deployment
+
+Deploy your application using [Vercel](https://vercel.com/new):
+
+1. Push your code to a Git repository
+2. Import your repository to Vercel
+3. Configure environment variables
+4. Deploy!
